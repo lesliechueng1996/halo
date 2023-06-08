@@ -1,4 +1,4 @@
-import { NextAuthProvider } from '@/components/providers';
+import { NextAuthProvider, ToastProvider } from '@/components/providers';
 import '@/app/globals.css';
 
 export const metadata = {
@@ -13,8 +13,15 @@ export default function MaintanenceRootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+        />
+      </head>
       <body>
         <NextAuthProvider>{children}</NextAuthProvider>
+        <ToastProvider />
       </body>
     </html>
   );
