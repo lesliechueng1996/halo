@@ -1,6 +1,6 @@
 'use client';
 
-import { redirect } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 import Menu from '@/components/Menu';
 import { useSession } from 'next-auth/react';
 import ConsoleHeader from '@/components/ConsoleHeader';
@@ -61,9 +61,10 @@ type Props = {
 
 function ConsoleLayout({ children }: Props) {
   const { status } = useSession();
+  const pathname = usePathname();
 
   if (status === 'unauthenticated') {
-    redirect('/console/login');
+    redirect(`/console/login?callback=${pathname}`);
   }
 
   const [isExpand, setIsExpand] = useState(true);
@@ -73,12 +74,18 @@ function ConsoleLayout({ children }: Props) {
       <aside className="flex-shrink-0">
         <Menu menus={menus} isExpand={isExpand} />
       </aside>
-      <main className="flex-grow">
-        <ConsoleHeader
-          isExpand={isExpand}
-          onChangeExpand={() => setIsExpand(!isExpand)}
-        />
-        <section>{children}</section>
+      <main className="flex-grow flex flex-col">
+        <header className="w-full flex-shrink-0">
+          <ConsoleHeader
+            isExpand={isExpand}
+            onChangeExpand={() => setIsExpand(!isExpand)}
+          />
+        </header>
+        <section className="p-5 flex-grow">
+          <div className="shadow-md h-full overflow-auto p-3 border rounded-lg">
+            {children}
+          </div>
+        </section>
       </main>
     </div>
   );

@@ -1,4 +1,8 @@
-import { NextAuthProvider, ToastProvider } from '@/components/providers';
+import {
+  NextAuthProvider,
+  SWRProvider,
+  ToastProvider,
+} from '@/components/providers';
 import '@/app/globals.css';
 
 export const metadata = {
@@ -20,7 +24,10 @@ export default function MaintanenceRootLayout({
         />
       </head>
       <body>
-        <NextAuthProvider>{children}</NextAuthProvider>
+        <SWRProvider>
+          <NextAuthProvider>{children}</NextAuthProvider>
+        </SWRProvider>
+
         <ToastProvider />
         <div id="overlay-root"></div>
       </body>

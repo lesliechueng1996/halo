@@ -11,7 +11,11 @@ interface ILoginForm {
   password: string;
 }
 
-function LoginPage() {
+type Props = {
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+function LoginPage({ searchParams }: Props) {
   const {
     register,
     formState: { errors },
@@ -26,7 +30,7 @@ function LoginPage() {
     });
 
     if (result && result.ok && !result.error) {
-      router.replace('/console');
+      router.replace((searchParams.callback as string) || '/console');
     } else {
       toast.error('用户名密码错误');
     }

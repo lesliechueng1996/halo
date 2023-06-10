@@ -1,7 +1,7 @@
 import { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { getUserAuthByUsername } from '@/dao/UserAuthDao';
-import md5 from 'md5';
+import { getUserAuthByUsername, getUserAuthById } from '@/dao/UserAuthDao';
+import { encryptPwd } from '@/lib/utils';
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -17,10 +17,10 @@ export const authOptions: AuthOptions = {
         }
         const { username, password } = credentials;
         const userAuth = await getUserAuthByUsername(username);
-        const encryptPwd = md5(`${password}{${username}}`);
+        const encryptedPwd = encryptPwd(password, username);
 
-        if (encryptPwd === userAuth?.password) {
-          console.log('login success');
+        if (encryptedPwd === userAuth?.password) {
+          console.log('登陆成功');
           return {
             id: `${userAuth.id}`,
           };
@@ -32,5 +32,25 @@ export const authOptions: AuthOptions = {
   ],
   session: {
     strategy: 'jwt',
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        const userAuthId = user.id;
+        const userAuth = await getUserAuthById(Number(userAuthId));
+
+        token.authId = userAuthId;
+        token.userId = userAuth!.userInfoId;
+      }
+      return token;
+    },
+    async session({ session, user, token }) {
+      session.user!.authId = token.authId as number;
+      session.user!.userId = token.userId as number;
+      return session;
+    },
+  },
+  pages: {
+    signIn: '/console/login',
   },
 };

@@ -12,6 +12,8 @@ import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState, MouseEvent } from 'react';
 import ReactDOM from 'react-dom';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import useUserInfo from '@/hooks/userUserInfo';
 
 type Props = {
   isExpand: boolean;
@@ -22,11 +24,16 @@ function ConsoleHeader({ isExpand, onChangeExpand }: Props) {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const overlayRoot = useRef<HTMLElement | undefined>(undefined);
   const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
+  const router = useRouter();
+  const { avatarUrl } = useUserInfo();
 
   const handleMouseEnter = useCallback((event: MouseEvent<HTMLDivElement>) => {
     timeoutRef.current && clearTimeout(timeoutRef.current);
 
-    const dom = document.getElementById('overlay-avatar-panel')!;
+    const dom = document.getElementById('overlay-avatar-panel');
+    if (!dom) {
+      return;
+    }
     const element = event.currentTarget;
     const rect = element.getBoundingClientRect();
 
@@ -37,7 +44,10 @@ function ConsoleHeader({ isExpand, onChangeExpand }: Props) {
 
   const handleMouseLeave = useCallback(() => {
     timeoutRef.current = setTimeout(() => {
-      const dom = document.getElementById('overlay-avatar-panel')!;
+      const dom = document.getElementById('overlay-avatar-panel');
+      if (!dom) {
+        return;
+      }
       dom.style.display = 'none';
     }, 500);
   }, []);
@@ -57,7 +67,7 @@ function ConsoleHeader({ isExpand, onChangeExpand }: Props) {
   };
 
   return (
-    <header className="h-14 w-full shadow-md px-3 flex items-center justify-between">
+    <div className="h-14 w-full shadow-md px-3 flex items-center justify-between">
       <div className="cursor-pointer" onClick={onChangeExpand}>
         {isExpand ? (
           <Bars3BottomLeftIcon className="w-6 h-6" />
@@ -80,7 +90,7 @@ function ConsoleHeader({ isExpand, onChangeExpand }: Props) {
 
         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <Image
-            src="https://ui-avatars.com/api/?background=random&name=Leslie+Zhang"
+            src={avatarUrl}
             alt="avatar"
             width={40}
             height={40}
@@ -91,13 +101,16 @@ function ConsoleHeader({ isExpand, onChangeExpand }: Props) {
           ReactDOM.createPortal(
             <div
               id="overlay-avatar-panel"
-              className="hidden fixed text-neutral-800 shadow-md space-y-2 py-2"
+              className="hidden fixed text-neutral-800 shadow-md space-y-2 py-2 bg-white"
               onMouseEnter={() => {
                 timeoutRef.current && clearTimeout(timeoutRef.current);
               }}
               onMouseLeave={handleMouseLeave}
             >
-              <div className="px-5 py-3 flex gap-2 items-center hover:bg-sky-200 cursor-pointer">
+              <div
+                className="px-5 py-3 flex gap-2 items-center hover:bg-sky-200 cursor-pointer"
+                onClick={() => router.push('/console/setting')}
+              >
                 <UserIcon className="w-4 h-4" />
                 <span>个人中心</span>
               </div>
@@ -113,7 +126,7 @@ function ConsoleHeader({ isExpand, onChangeExpand }: Props) {
             overlayRoot.current
           )}
       </div>
-    </header>
+    </div>
   );
 }
 
