@@ -7,6 +7,7 @@ type Props = {
   isExpand: boolean;
   subMenu?: boolean;
   className?: string;
+  onlyIcon: boolean;
   onClick: (menu: MenuItem) => void;
 };
 
@@ -16,6 +17,7 @@ function MenuItem({
   isExpand,
   subMenu = false,
   className = '',
+  onlyIcon,
   onClick,
 }: Props) {
   const { icon, name } = menu;
@@ -29,8 +31,8 @@ function MenuItem({
       <div className="flex-shrink-0 w-8 text-center">
         <i className={`bi bi-${icon}`} style={{ fontSize: '1rem' }}></i>
       </div>
-      <span className="grow">{name}</span>
-      {hasChildren && (
+      {!onlyIcon && <span className="grow">{name}</span>}
+      {hasChildren && !onlyIcon ? (
         <div className="flex-shrink-0">
           {isExpand ? (
             <ChevronUpIcon className="w-4 h-4" />
@@ -38,6 +40,8 @@ function MenuItem({
             <ChevronDownIcon className="w-4 h-4" />
           )}
         </div>
+      ) : (
+        <div className="w-4"></div>
       )}
     </div>
   );

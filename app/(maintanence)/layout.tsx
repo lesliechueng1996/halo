@@ -15,13 +15,14 @@ export default function MaintanenceRootLayout({
     <html lang="en">
       <head>
         <link
+          href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.10.4/font/bootstrap-icons.min.css"
           rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
         />
       </head>
       <body>
         <NextAuthProvider>{children}</NextAuthProvider>
         <ToastProvider />
+        <div id="overlay-root"></div>
       </body>
     </html>
   );

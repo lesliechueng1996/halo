@@ -3,6 +3,8 @@
 import { redirect } from 'next/navigation';
 import Menu from '@/components/Menu';
 import { useSession } from 'next-auth/react';
+import ConsoleHeader from '@/components/ConsoleHeader';
+import { useState } from 'react';
 
 const menus = [
   {
@@ -53,20 +55,33 @@ const menus = [
   },
 ];
 
-function ConsolePage() {
+type Props = {
+  children: React.ReactNode;
+};
+
+function ConsoleLayout({ children }: Props) {
   const { status } = useSession();
 
   if (status === 'unauthenticated') {
     redirect('/console/login');
   }
 
+  const [isExpand, setIsExpand] = useState(true);
+
   return (
-    <div>
-      <aside>
-        <Menu menus={menus} isExpand={false} />
+    <div className="flex">
+      <aside className="flex-shrink-0">
+        <Menu menus={menus} isExpand={isExpand} />
       </aside>
+      <main className="flex-grow">
+        <ConsoleHeader
+          isExpand={isExpand}
+          onChangeExpand={() => setIsExpand(!isExpand)}
+        />
+        <section>{children}</section>
+      </main>
     </div>
   );
 }
 
-export default ConsolePage;
+export default ConsoleLayout;
