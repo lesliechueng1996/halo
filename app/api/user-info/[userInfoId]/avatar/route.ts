@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { nanoid } from 'nanoid';
 import { Blob } from 'buffer';
 import { MinioBucket } from '@/lib/constant';
-import { updateAvatarById, getUserInfoById } from '@/dao/UserInfoDao';
+import { updateAvatarById } from '@/dao/UserInfoDao';
 
 export async function POST(
   request: Request,
@@ -29,7 +29,10 @@ export async function POST(
     }
 
     try {
-      await updateAvatarById(fileName, Number(params.userInfoId));
+      await updateAvatarById(
+        `${MinioBucket.AVATAR}/${fileName}`,
+        Number(params.userInfoId)
+      );
     } catch (e) {
       return NextResponse.json({ msg: '上传图片失败' }, { status: 500 });
     }
@@ -41,47 +44,47 @@ export async function POST(
   return NextResponse.json({ msg: '上传图片失败' }, { status: 500 });
 }
 
-export async function GET(
-  request: Request,
-  { params }: { params: { userInfoId: string } }
-) {
-  const { userInfoId } = params;
-  const userInfo = await getUserInfoById(Number(userInfoId));
-  if (!userInfo) {
-    return NextResponse.json({ msg: '用户不存在' }, { status: 404 });
-  }
+// export async function GET(
+//   request: Request,
+//   { params }: { params: { userInfoId: string } }
+// ) {
+//   const { userInfoId } = params;
+//   const userInfo = await getUserInfoById(Number(userInfoId));
+//   if (!userInfo) {
+//     return NextResponse.json({ msg: '用户不存在' }, { status: 404 });
+//   }
 
-  if (!userInfo.avatar) {
-    return NextResponse.json({ msg: '用户未上传头像' }, { status: 404 });
-  }
+//   if (!userInfo.avatar) {
+//     return NextResponse.json({ msg: '用户未上传头像' }, { status: 404 });
+//   }
 
-  const avatar = await minioClient.getObject(
-    MinioBucket.AVATAR,
-    userInfo.avatar
-  );
+//   const avatar = await minioClient.getObject(
+//     MinioBucket.AVATAR,
+//     userInfo.avatar
+//   );
 
-  const readAvatar = () => {
-    return new Promise((resolve: (buffer: Buffer) => void, reject) => {
-      const chunks: Uint8Array[] = [];
-      avatar.on('data', (chunk) => {
-        chunks.push(chunk);
-      });
-      avatar.on('end', () => {
-        resolve(Buffer.concat(chunks));
-      });
-      avatar.on('error', (err) => {
-        reject(err);
-      });
-    });
-  };
+//   const readAvatar = () => {
+//     return new Promise((resolve: (buffer: Buffer) => void, reject) => {
+//       const chunks: Uint8Array[] = [];
+//       avatar.on('data', (chunk) => {
+//         chunks.push(chunk);
+//       });
+//       avatar.on('end', () => {
+//         resolve(Buffer.concat(chunks));
+//       });
+//       avatar.on('error', (err) => {
+//         reject(err);
+//       });
+//     });
+//   };
 
-  try {
-    const buffer = await readAvatar();
-    const response = new Response(buffer);
-    response.headers.set('Content-Type', 'image/jpeg');
-    return response;
-  } catch (e) {
-    console.error('get avatar error', e);
-    return NextResponse.json({ msg: '获取头像失败' }, { status: 500 });
-  }
-}
+//   try {
+//     const buffer = await readAvatar();
+//     const response = new Response(buffer);
+//     response.headers.set('Content-Type', 'image/jpeg');
+//     return response;
+//   } catch (e) {
+//     console.error('get avatar error', e);
+//     return NextResponse.json({ msg: '获取头像失败' }, { status: 500 });
+//   }
+// }

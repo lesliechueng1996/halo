@@ -20,7 +20,9 @@ function useUserInfo() {
   useEffect(() => {
     if (user) {
       if (user.avatar) {
-        setAvatarUrl(`/api/user-info/${user.id}/avatar`);
+        setAvatarUrl(
+          `${process.env.NEXT_PUBLIC_AVATAR_HOSTNAME}${user.avatar}`
+        );
       } else {
         const param = user.nickname.replace(' ', '+');
         setAvatarUrl(

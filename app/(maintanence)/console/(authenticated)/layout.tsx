@@ -22,7 +22,7 @@ const menus = [
         id: 3,
         icon: 'file-earmark-plus',
         name: '发布文章',
-        url: '/console/articles/create',
+        url: '/console/create-article',
       },
       { id: 4, icon: 'files', name: '文章列表', url: '/console/articles' },
       {
@@ -82,7 +82,7 @@ function ConsoleLayout({ children }: Props) {
           />
         </header>
         <section className="p-5 flex-grow">
-          <div className="shadow-md h-full overflow-auto p-3 border rounded-lg">
+          <div className="shadow-md h-full overflow-auto py-5 border rounded-lg">
             {children}
           </div>
         </section>
