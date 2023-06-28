@@ -20,47 +20,45 @@ datasource db {
 //   @@map("t_about")
 // }
 
-// /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-// model Article {
-//   id             Int       @id @default(autoincrement())
-//   userId         Int       @map("user_id")
-//   categoryId     Int?      @map("category_id")
-//   articleCover   String?   @map("article_cover") @db.VarChar(1024)
-//   articleTitle   String    @map("article_title") @db.VarChar(50)
-//   articleContent String    @map("article_content") @db.Text
-//   isTop          Boolean   @default(false) @map("is_top")
-//   isFeatured     Boolean   @default(false) @map("is_featured")
-//   isDelete       Boolean   @default(false) @map("is_delete")
-//   status         Int   @default(1)
-//   type           Int   @default(1)
-//   password       String?   @db.VarChar(255)
-//   originalUrl    String?   @map("original_url") @db.VarChar(255)
-//   createTime     DateTime  @map("create_time") @db.Timestamp(6)
-//   updateTime     DateTime? @map("update_time") @db.Timestamp(6)
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Article {
+  id             Int       @id @default(autoincrement())
+  userId         Int       @map("user_id")
+  categoryId     Int?      @map("category_id")
+  articleCover   String?   @map("article_cover") @db.VarChar(1024)
+  articleTitle   String    @map("article_title") @db.VarChar(50)
+  articleContent String    @map("article_content") @db.Text
+  isTop          Boolean   @default(false) @map("is_top")
+  isFeatured     Boolean   @default(false) @map("is_featured")
+  isDelete       Boolean   @default(false) @map("is_delete")
+  status         Int   @default(1)
+  type           Int   @default(1)
+  password       String?   @db.VarChar(255)
+  originalUrl    String?   @map("original_url") @db.VarChar(255)
+  createTime     DateTime  @map("create_time") @db.Timestamp(6)
+  updateTime     DateTime? @map("update_time") @db.Timestamp(6)
 
-//   @@map("t_article")
-// }
+  @@map("t_article")
+}
 
-// /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-// model ArticleTag {
-//   id        Int @id @default(autoincrement())
-//   articleId Int @map("article_id")
-//   tagId     Int @map("tag_id")
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model ArticleTag {
+  id        Int @id @default(autoincrement())
+  articleId Int @map("article_id")
+  tagId     Int @map("tag_id")
 
-//   @@index([articleId], map: "fk_article_tag_1")
-//   @@index([tagId], map: "fk_article_tag_2")
-//   @@map("t_article_tag")
-// }
+  @@map("t_article_tag")
+}
 
-// /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-// model Category {
-//   id           Int       @id @default(autoincrement())
-//   categoryName String    @map("category_name") @db.VarChar(20)
-//   createTime   DateTime  @map("create_time") @db.Timestamp(6)
-//   updateTime   DateTime? @map("update_time") @db.Timestamp(6)
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Category {
+  id           Int       @id @default(autoincrement())
+  categoryName String    @map("category_name") @db.VarChar(20)
+  createTime   DateTime  @map("create_time") @db.Timestamp(6)
+  updateTime   DateTime? @map("update_time") @db.Timestamp(6)
 
-//   @@map("t_category")
-// }
+  @@map("t_category")
+}
 
 // /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 // model Comment {
@@ -254,15 +252,15 @@ datasource db {
 //   @@map("t_role_resource")
 // }
 
-// /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-// model Tag {
-//   id         Int       @id @default(autoincrement())
-//   tagName    String    @map("tag_name") @db.VarChar(20)
-//   createTime DateTime  @map("create_time") @db.Timestamp(6)
-//   updateTime DateTime? @map("update_time") @db.Timestamp(6)
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Tag {
+  id         Int       @id @default(autoincrement())
+  tagName    String    @map("tag_name") @db.VarChar(20)
+  createTime DateTime  @map("create_time") @db.Timestamp(6)
+  updateTime DateTime? @map("update_time") @db.Timestamp(6)
 
-//   @@map("t_tag")
-// }
+  @@map("t_tag")
+}
 
 // /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 // model Talk {
