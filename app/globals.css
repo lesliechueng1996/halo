@@ -8,3 +8,12 @@
     list-style: revert;
   }
 }
+
+@layer utilities {
+  .blue-button {
+    @apply bg-blue-500 px-3 py-2 rounded-sm text-white flex gap-2 items-center text-xs hover:bg-blue-400;
+  }
+  .red-button {
+    @apply bg-red-500 px-3 py-2 rounded-sm text-white flex gap-2 items-center text-xs hover:bg-red-400;
+  }
+}
