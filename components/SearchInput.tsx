@@ -13,7 +13,7 @@ const SearchInput = forwardRef(function SearchInput(
     <div className="relative">
       <MagnifyingGlassIcon className="absolute w-4 h-4 left-3 top-1/2 -mt-2" />
       <input
-        className="border border-neutral-300 py-2 rounded-sm pl-8 text-xs focus:border-sky-500 outline-none hover:border-neutral-400"
+        className="default-input !pl-8"
         placeholder={placeholder}
         ref={ref}
       />
