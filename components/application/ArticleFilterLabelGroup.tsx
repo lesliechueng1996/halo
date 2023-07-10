@@ -15,8 +15,17 @@ type Props = {
   className?: string;
 };
 
+const ACTIVE_BUTTON_CLASS = 'gradient-bg text-label hover:text-content-main';
+const INACTIVE_BUTTON_CLASS =
+  'bg-deep-background text-content-main hover:text-content-sub';
+
 function ArticleFilterLabelGroup({ labels, className }: Props) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [activeId, setActiveId] = useState('');
+
+  const handleActive = (id: string) => {
+    setActiveId(id);
+  };
 
   return (
     <div className={`relative ${className}`}>
@@ -25,13 +34,23 @@ function ArticleFilterLabelGroup({ labels, className }: Props) {
           isExpanded ? 'h-auto' : 'h-10'
         }`}
       >
-        <button className="gradient-bg text-label px-6 py-2 rounded-lg hover:text-content-main">
+        <button
+          className={`px-6 py-2 rounded-lg ${
+            activeId === '' ? ACTIVE_BUTTON_CLASS : INACTIVE_BUTTON_CLASS
+          }`}
+          onClick={() => handleActive('')}
+        >
           全部
         </button>
         {labels.map((label) => (
           <button
-            className="bg-deep-background px-6 py-2 rounded-lg text-content-main hover:text-content-sub"
+            className={`px-6 py-2 rounded-lg ${
+              activeId === label.id
+                ? ACTIVE_BUTTON_CLASS
+                : INACTIVE_BUTTON_CLASS
+            }`}
             key={label.id}
+            onClick={() => handleActive(label.id)}
           >
             {label.text}
           </button>

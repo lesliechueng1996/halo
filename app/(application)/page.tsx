@@ -9,7 +9,7 @@ import WebInfor from '@/components/application/WebInfor';
 
 export default function Home() {
   return (
-    <main className="space-y-10 pb-10">
+    <main className="space-y-10 pb-10 pt-10">
       <AppBanner />
       <RecommendBanner />
       <div className="bg-background p-5 rounded-2xl flex items-start gap-5">
