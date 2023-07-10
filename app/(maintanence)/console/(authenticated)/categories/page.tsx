@@ -28,11 +28,20 @@ const headers: Column[] = [
 
 function CategoriesPage() {
   const [keyword, setKeyword] = useState('');
+  const [editId, setEditId] = useState('');
 
   const operations = (row: DataType) => {
     return (
       <div className="flex gap-2">
-        <button className="blue-button">编辑</button>
+        <button
+          className="blue-button"
+          onClick={() => {
+            setEditId(row.id);
+            showEditModal();
+          }}
+        >
+          编辑
+        </button>
         <button className="red-button" onClick={() => removeItem(row.id)}>
           删除
         </button>
@@ -73,6 +82,19 @@ function CategoriesPage() {
     },
   });
 
+  const {
+    Dialog: EditDialog,
+    showModal: showEditModal,
+    closeModal: closeEditModal,
+    dialogRef: editDialogRef,
+  } = useDialog({
+    title: '编辑分类',
+    className: 'w-96',
+    onClose: () => {
+      setEditId('');
+    },
+  });
+
   return (
     <ContentLayout title="分类管理">
       <div className="flex items-center justify-between mb-5">
@@ -93,6 +115,12 @@ function CategoriesPage() {
       <Dialog>
         <NewAndEditCategories closeModal={closeModal} />
       </Dialog>
+
+      <EditDialog>
+        {editId && (
+          <NewAndEditCategories closeModal={closeModal} categoryId={editId} />
+        )}
+      </EditDialog>
     </ContentLayout>
   );
 }
