@@ -15,7 +15,7 @@ export default function Home() {
       <div className="bg-background p-5 rounded-2xl flex items-start gap-5">
         <ArticleList />
         <div className="hidden lg:flex flex-col space-y-10">
-          <MySelf />
+          <MySelf className="pt-20" />
           <LatestComment />
           <LabelPanel />
           <NoticePanel />

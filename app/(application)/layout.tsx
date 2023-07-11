@@ -1,6 +1,5 @@
 import '@/app/globals.css';
-import AppHeader from '@/components/application/AppHeader';
-import FlowBar from '@/components/application/FlowBar';
+import ApplicationLayout from '@/components/application/ApplicationLayout';
 
 export const metadata = {
   title: 'Create Next App',
@@ -14,13 +13,8 @@ export default function ApplicationRootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="w-screen bg-[url('/images/bg.jpeg')] bg-no-repeat bg-cover overflow-x-hidden max-w-7xl mx-auto px-10 pb-20">
-        <AppHeader />
-        {children}
-
-        <div className="fixed bottom-20 right-16">
-          <FlowBar />
-        </div>
+      <body className="bg-deep-background overflow-x-hidden">
+        <ApplicationLayout>{children}</ApplicationLayout>
       </body>
     </html>
   );

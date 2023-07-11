@@ -6,10 +6,15 @@ import {
   XMarkIcon,
   HomeModernIcon,
   MagnifyingGlassIcon,
+  NewspaperIcon,
 } from '@heroicons/react/24/outline';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAnimate } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+
+type Props = {
+  onMenuClick: () => void;
+};
 
 const rocketAnimation = {
   show: {
@@ -83,6 +88,14 @@ const subMenuAnimation = {
       x: '0',
     },
   },
+  menus: {
+    show: {
+      x: '-9rem',
+    },
+    hide: {
+      x: '0',
+    },
+  },
   openOptions: {
     duration: 0.3,
     type: 'spring',
@@ -96,7 +109,7 @@ const subMenuAnimation = {
   },
 } as const;
 
-function FlowBar() {
+function FlowBar({ onMenuClick }: Props) {
   const scrolling = useRef(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [percent, setPercent] = useState<number>(0);
@@ -105,6 +118,13 @@ function FlowBar() {
   const route = useRouter();
 
   const playShowSubMenu = useCallback(() => {
+    animate(
+      '.rocket',
+      {
+        opacity: 0,
+      },
+      subMenuAnimation.openOptions
+    );
     animate(
       '.menu-rocket',
       subMenuAnimation.rocket.show,
@@ -120,9 +140,21 @@ function FlowBar() {
       subMenuAnimation.search.show,
       subMenuAnimation.openOptions
     );
+    animate(
+      '.menu-menus',
+      subMenuAnimation.menus.show,
+      subMenuAnimation.openOptions
+    );
   }, [animate]);
 
   const playHideSubMenu = useCallback(() => {
+    animate(
+      '.rocket',
+      {
+        opacity: 1,
+      },
+      subMenuAnimation.openOptions
+    );
     animate(
       '.menu-rocket',
       subMenuAnimation.rocket.hide,
@@ -138,6 +170,11 @@ function FlowBar() {
       subMenuAnimation.search.hide,
       subMenuAnimation.closeOptions
     );
+    animate(
+      '.menu-menus',
+      subMenuAnimation.menus.hide,
+      subMenuAnimation.closeOptions
+    );
   }, [animate]);
 
   const handleScroll = useCallback(() => {
@@ -146,7 +183,6 @@ function FlowBar() {
     const percent = (offset / height) * 100;
 
     setPercent(percent);
-
     if (percent > 5) {
       animate('.rocket', rocketAnimation.show.to, rocketAnimation.show.options);
     } else {
@@ -155,6 +191,7 @@ function FlowBar() {
 
     if (!scrolling.current) {
       scrolling.current = true;
+
       setShowSubmenu(false);
       playHideSubMenu();
 
@@ -197,15 +234,14 @@ function FlowBar() {
   return (
     <div className="relative" ref={scope}>
       <div
-        className={`rocket absolute w-12 h-12 ${
-          showSubmenu ? 'hidden' : 'flex'
-        } justify-center items-center cursor-pointer text-label`}
+        className="rocket absolute w-12 h-12 flex justify-center items-center cursor-pointer text-label"
         onClick={() => scrollTo(0, 0)}
       >
         <RocketLaunchIcon className="w-8 h-8 -rotate-45" />
       </div>
 
       <div
+        title="返回顶部"
         className="menu-rocket absolute w-12 h-12 gradient-bg rounded-full flex justify-center items-center cursor-pointer"
         onClick={() => scrollTo(0, 0)}
       >
@@ -215,6 +251,7 @@ function FlowBar() {
       </div>
 
       <div
+        title="返回首页"
         className="menu-home absolute w-12 h-12 gradient-bg rounded-full flex justify-center items-center cursor-pointer"
         onClick={() => route.push('/')}
       >
@@ -223,9 +260,22 @@ function FlowBar() {
         </div>
       </div>
 
-      <div className="menu-search absolute w-12 h-12 gradient-bg rounded-full flex justify-center items-center cursor-pointer">
+      <div
+        title="打开搜索"
+        className="menu-search absolute w-12 h-12 gradient-bg rounded-full flex justify-center items-center cursor-pointer"
+      >
         <div className="bg-background rounded-full w-11 h-11 flex justify-center items-center text-label">
           <MagnifyingGlassIcon className="w-6 h-6" />
+        </div>
+      </div>
+
+      <div
+        title="打开菜单"
+        className="menu-menus flex lg:hidden absolute w-12 h-12 gradient-bg rounded-full justify-center items-center cursor-pointer"
+        onClick={onMenuClick}
+      >
+        <div className="bg-background rounded-full w-11 h-11 flex justify-center items-center text-label">
+          <NewspaperIcon className="w-6 h-6" />
         </div>
       </div>
 

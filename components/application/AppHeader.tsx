@@ -21,8 +21,12 @@ function AppHeader() {
         <Link href="/" className={NAV_ITEM_STYLE}>
           首页
         </Link>
-        <div className={NAV_ITEM_STYLE}>说说</div>
-        <div className={NAV_ITEM_STYLE}>关于</div>
+        <Link href="/talks" className={NAV_ITEM_STYLE}>
+          说说
+        </Link>
+        <Link href="/about" className={NAV_ITEM_STYLE}>
+          关于
+        </Link>
         <div className={NAV_ITEM_STYLE}>归档</div>
         <div className={NAV_ITEM_STYLE}>标签</div>
         <div className={NAV_ITEM_STYLE}>留言</div>
