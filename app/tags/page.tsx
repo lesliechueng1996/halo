@@ -1,5 +1,5 @@
-import BreadcrumbTitle from '@/components/application/BreadcrumbTitle';
-import Label, { Tag } from '@/components/application/Label';
+import BreadcrumbTitle from '@/components/BreadcrumbTitle';
+import Label, { Tag } from '@/components/Label';
 
 const tags: Tag[] = [
   {

@@ -1,6 +1,6 @@
-import BreadcrumbTitle from '@/components/application/BreadcrumbTitle';
-import Comment from '@/components/application/Comment';
-import MySelf from '@/components/application/MySelf';
+import BreadcrumbTitle from '@/components/BreadcrumbTitle';
+import Comment from '@/components/Comment';
+import MySelf from '@/components/MySelf';
 
 function MessagePage() {
   return (

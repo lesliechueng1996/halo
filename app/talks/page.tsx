@@ -1,6 +1,6 @@
-import BreadcrumbTitle from '@/components/application/BreadcrumbTitle';
-import MySelf from '@/components/application/MySelf';
-import TalkCard from '@/components/application/TalkCard';
+import BreadcrumbTitle from '@/components/BreadcrumbTitle';
+import MySelf from '@/components/MySelf';
+import TalkCard from '@/components/TalkCard';
 
 const talks = [
   {

@@ -1,5 +1,5 @@
 import '@/app/globals.css';
-import ApplicationLayout from '@/components/application/ApplicationLayout';
+import ApplicationLayout from '@/components/ApplicationLayout';
 
 export const metadata = {
   title: 'Leslie 的个人博客',

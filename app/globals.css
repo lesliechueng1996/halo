@@ -12,26 +12,9 @@
     --background-color: 33 33 33;
     --deep-background-color: 26 26 26;
   }
-
-  ul,
-  ol {
-    list-style: revert;
-  }
 }
 
 @layer utilities {
-  .blue-button {
-    @apply bg-blue-500 px-3 py-2 rounded-sm text-white flex gap-2 items-center text-xs hover:bg-blue-400 font-bold;
-  }
-  .red-button {
-    @apply bg-red-500 px-3 py-2 rounded-sm text-white flex gap-2 items-center text-xs hover:bg-red-400 font-bold;
-  }
-  .white-button {
-    @apply bg-white px-3 py-2 rounded-sm text-black flex gap-2 items-center text-xs hover:bg-sky-200 font-bold;
-  }
-  .default-input {
-    @apply border border-neutral-300 py-2 px-3 rounded-sm text-xs focus:border-sky-500 outline-none hover:border-neutral-400;
-  }
   .gradient-bg {
     @apply bg-gradient-to-br from-indigo-500 via-purple-500 to-orange-500;
   }

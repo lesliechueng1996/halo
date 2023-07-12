@@ -1,8 +1,8 @@
 'use client';
 
-import BreadcrumbTitle from '@/components/application/BreadcrumbTitle';
-import MySelf from '@/components/application/MySelf';
-import Comment from '@/components/application/Comment';
+import BreadcrumbTitle from '@/components/BreadcrumbTitle';
+import MySelf from '@/components/MySelf';
+import Comment from '@/components/Comment';
 import {
   BookOpenIcon,
   BackwardIcon,
