@@ -41,10 +41,16 @@ function Comment() {
         </div>
       </div>
 
-      <div className="space-y-5">
+      <div className="space-y-5 mb-5">
         {comments.map((comment) => (
           <ReplyComment key={comment.id} {...comment} />
         ))}
+      </div>
+
+      <div className="text-center">
+        <button className="gradient-bg py-2 px-3 rounded-lg text-label items-end">
+          加载更多
+        </button>
       </div>
     </div>
   );

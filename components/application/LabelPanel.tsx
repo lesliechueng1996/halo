@@ -1,11 +1,6 @@
 import CardLayout from './CardLayout';
 import { TagIcon } from '@heroicons/react/24/outline';
-
-type Tag = {
-  id: string;
-  name: string;
-  count: number;
-};
+import Label, { Tag } from './Label';
 
 const tags: Tag[] = [
   {
@@ -60,16 +55,6 @@ const tags: Tag[] = [
   },
 ];
 
-function Tag({ name, count }: Tag) {
-  return (
-    <div className="flex items-center bg-background p-2 rounded-lg">
-      <span className="text-content-sub mr-1">#</span>
-      <span className="text-content-main mr-5">{name}</span>
-      <span className="text-label-colorful-sub">{count}</span>
-    </div>
-  );
-}
-
 function LabelPanel() {
   return (
     <div className="w-80">
@@ -77,7 +62,7 @@ function LabelPanel() {
         <div>
           <div className="flex gap-x-5 flex-wrap text-sm mb-5">
             {tags.map((tag) => (
-              <Tag key={tag.id} {...tag} />
+              <Label key={tag.id} {...tag} />
             ))}
           </div>
           <div className="border-b-2 border-label-colorful inline-block">

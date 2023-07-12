@@ -34,10 +34,13 @@ function SideMenu({ onMenuClick }: Props) {
         <span className="cursor-pointer" onClick={() => onMenuClick('/')}>
           归档
         </span>
-        <span className="cursor-pointer" onClick={() => onMenuClick('/')}>
+        <span className="cursor-pointer" onClick={() => onMenuClick('/tags')}>
           标签
         </span>
-        <span className="cursor-pointer" onClick={() => onMenuClick('/')}>
+        <span
+          className="cursor-pointer"
+          onClick={() => onMenuClick('/message')}
+        >
           留言
         </span>
         <span className="cursor-pointer" onClick={() => onMenuClick('/')}>

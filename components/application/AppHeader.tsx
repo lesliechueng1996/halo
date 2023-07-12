@@ -28,8 +28,12 @@ function AppHeader() {
           关于
         </Link>
         <div className={NAV_ITEM_STYLE}>归档</div>
-        <div className={NAV_ITEM_STYLE}>标签</div>
-        <div className={NAV_ITEM_STYLE}>留言</div>
+        <Link href="/tags" className={NAV_ITEM_STYLE}>
+          标签
+        </Link>
+        <Link href="/message" className={NAV_ITEM_STYLE}>
+          留言
+        </Link>
         <div className={NAV_ITEM_STYLE}>友链</div>
         <div className={NAV_ITEM_STYLE}>相册</div>
       </nav>

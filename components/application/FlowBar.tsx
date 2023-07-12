@@ -271,7 +271,7 @@ function FlowBar({ onMenuClick }: Props) {
 
       <div
         title="打开菜单"
-        className="menu-menus flex lg:hidden absolute w-12 h-12 gradient-bg rounded-full justify-center items-center cursor-pointer"
+        className="menu-menus flex lg:!hidden absolute w-12 h-12 gradient-bg rounded-full justify-center items-center cursor-pointer"
         onClick={onMenuClick}
       >
         <div className="bg-background rounded-full w-11 h-11 flex justify-center items-center text-label">
